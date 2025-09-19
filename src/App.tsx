@@ -1,15 +1,14 @@
+import { ProductsList } from "./view/screens/productsList";
 
 
 function App() {
 
   return (
-    <>
-      <div>
-        <h1 className="text-7xl text-blue-400">Hello</h1>
-      </div>
-
-    </>
-  )
+    <div className="min-h-screen bg-gray-50">
+      <h1 className="text-2xl font-bold text-center py-4">FakeStore</h1>
+      <ProductsList />
+    </div>
+  );
 }
 
 export default App
