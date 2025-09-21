@@ -1,15 +1,15 @@
-import api from "../api/api";
+import httpClient from "../api/httpClients";
 import type { Product } from "../models/product";
 
 
 export const productRepository = {
     async getAllProducts(): Promise<Product[]> {
-        const response = await api.get<Product[]>("/products");
+        const response = await httpClient.get<Product[]>("/products");
         return response.data;
     },
 
     async getProductById(id: number): Promise<Product> {
-        const response = await api.get<Product>(`/products/${id}`);
+        const response = await httpClient.get<Product>(`/products/${id}`);
         return response.data;
     }
 }
