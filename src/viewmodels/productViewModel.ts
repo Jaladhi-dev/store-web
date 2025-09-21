@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
+import type { Product } from "../models/product"
 import { productRepository } from "../repository/productRepository";
-import type { Product } from "../models/product";
-import { STATIC_STRINGS } from "../utils/constants/stringConstants";
 
-export const useProductViewModel = () => {
-    const [products, setProducts] = useState<Product[]>([]);
+export const getProductViewModel = (id: number) => {
+    const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<String | null>(null);
 
     useEffect(() => {
-        const fetchProducts = async () => {
+        const getProduct = async () => {
             setLoading(true);
             try {
-                const data = await productRepository.getAllProducts();
-                setProducts(data);
+                const data = await productRepository.getProductById(id);
+                setProduct(data);
             } catch (err: any) {
-                setError(err.message || STATIC_STRINGS.FETCH_PRODUCTS_ERROR);
+                console.error(err);
+                setError(err.message || "Error fetching product");
             } finally {
                 setLoading(false);
             }
         }
-        fetchProducts();
+        getProduct();
     }, []);
 
+
     return {
-        products,
+        product,
         loading,
         error
     }
